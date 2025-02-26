@@ -1,0 +1,45 @@
+# 依赖目录
+node_modules/
+dist/
+build/
+
+# 编译输出
+*.min.js
+*.min.css
+
+# 开发工具配置
+.vscode/
+.idea/
+*.sublime-*
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 临时文件
+*.log
+*.tmp
+*.temp
+
+# 测试文件
+test/
+__tests__/
+*.test.js
+*.spec.js
+
+# 其他不需要遵循注释规范的文件
+package-lock.json
+yarn.lock
+README.md
+LICENSE
+
+# 第三方库文件
+vendor/
+libs/
+assets/libs/
+
+# 配置文件
+*.config.js
+.env*
+.prettierrc
+.eslintrc 

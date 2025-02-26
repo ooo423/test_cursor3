@@ -1,0 +1,21 @@
+# 前端代码生成规则
+
+LANGUAGE: zh-CN
+
+COMMENT_STRUCTURE:
+/**
+ * @file 文件名
+ * @description 文件功能描述
+ * @backend_api 后端接口说明
+ * @data_format 数据格式说明
+ */
+
+FILE_RULES:
+- 每个文件顶部必须有完整注释
+- 所有后端API调用必须有详细说明
+- 函数必须包含参数和返回值说明
+
+BACKEND_INTEGRATION:
+- 清晰标注API端点
+- 说明数据格式
+- 注明权限要求 

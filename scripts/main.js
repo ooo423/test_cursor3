@@ -1,5 +1,20 @@
-// 登录页面的JavaScript代码
-async function handleLogin(event) {
+/**
+ * @file main.js
+ * @description 前端主要逻辑文件，包含登录和后台管理功能
+ */
+
+import { checkLoginStatus, logout, checkPermission } from './utils/auth.js';
+import { login, getSales } from './api/index.js';
+
+// 导出logout函数供HTML直接使用
+window.logout = logout;
+
+/**
+ * @function handleLogin
+ * @description 处理登录表单提交
+ * @param {Event} event - 表单提交事件
+ */
+window.handleLogin = async function(event) {
     event.preventDefault();
     
     const username = document.getElementById('username').value;
@@ -7,16 +22,7 @@ async function handleLogin(event) {
     const errorMessage = document.getElementById('errorMessage');
 
     try {
-        const response = await fetch('http://localhost:3000/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-        });
-
-        const data = await response.json();
-
+        const data = await login({ username, password });
         if (data.success) {
             sessionStorage.setItem('currentUser', JSON.stringify(data.user));
             window.location.href = 'dashboard.html';
@@ -28,43 +34,22 @@ async function handleLogin(event) {
         errorMessage.style.display = 'block';
         errorMessage.textContent = '服务器连接失败，请稍后重试！';
     }
-}
+};
 
-// 后台页面的JavaScript代码
-function checkLogin() {
-    const userStr = sessionStorage.getItem('currentUser');
-    if (!userStr) {
-        window.location.href = '222.html';
-        return;
-    }
-    return JSON.parse(userStr);
-}
-
-function initializePage() {
-    const user = checkLogin();
-    if (!user) return;
-
-    document.getElementById('userInfo').textContent = `${user.username} (${user.role === 'manager' ? '经理' : '员工'})`;
-    document.getElementById('profileUsername').textContent = user.username;
-    document.getElementById('profileRole').textContent = user.role === 'manager' ? '经理' : '员工';
-
-    const managerOnlyElements = document.getElementsByClassName('manager-only');
-    for (let element of managerOnlyElements) {
-        element.style.display = user.role === 'manager' ? 'block' : 'none';
-    }
-}
-
-async function showContent(contentType) {
+/**
+ * @function showContent
+ * @description 显示不同的内容区域
+ * @param {string} contentType - 要显示的内容类型
+ */
+window.showContent = async function(contentType) {
     const contents = ['dashboard-content', 'sales-content', 'profile-content'];
     contents.forEach(content => {
         document.getElementById(content).classList.add('hidden');
     });
     
-    if (contentType === 'sales') {
+    if (contentType === 'sales' && checkPermission('manager')) {
         try {
-            const response = await fetch('http://localhost:3000/api/sales');
-            const salesData = await response.json();
-            
+            const salesData = await getSales();
             const tbody = document.querySelector('#sales-content table tbody');
             tbody.innerHTML = salesData.map(sale => `
                 <tr>
@@ -80,14 +65,23 @@ async function showContent(contentType) {
     }
     
     document.getElementById(`${contentType}-content`).classList.remove('hidden');
-}
-
-function logout() {
-    sessionStorage.removeItem('currentUser');
-    window.location.href = '222.html';
-}
+};
 
 // 页面加载时初始化
 if (document.location.pathname.includes('dashboard')) {
-    window.onload = initializePage;
+    window.onload = function() {
+        const user = checkLoginStatus();
+        if (!user) return;
+
+        document.getElementById('userInfo').textContent = 
+            `${user.username} (${user.role === 'manager' ? '经理' : '员工'})`;
+        document.getElementById('profileUsername').textContent = user.username;
+        document.getElementById('profileRole').textContent = 
+            user.role === 'manager' ? '经理' : '员工';
+
+        const managerOnlyElements = document.getElementsByClassName('manager-only');
+        for (let element of managerOnlyElements) {
+            element.style.display = user.role === 'manager' ? 'block' : 'none';
+        }
+    };
 } 

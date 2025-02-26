@@ -1,0 +1,28 @@
+project/
+├── views/
+│   ├── login.html          # 原222.html
+│   └── dashboard.html      # 原dashboard.html
+├── styles/
+│   ├── main.css           # 原styles.css
+│   └── components/
+│       ├── login.css      # 登录页面样式
+│       └── dashboard.css   # 后台页面样式
+├── scripts/
+│   ├── main.js            # 原main.js
+│   ├── utils/
+│   │   └── auth.js        # 认证相关函数
+│   └── api/
+│       └── index.js       # API调用封装
+├── server/
+│   └── index.js           # 原test.js
+├── assets/
+│   ├── images/
+│   └── fonts/
+├── docs/
+│   ├── api.md             # API文档
+│   └── setup.md           # 项目设置说明
+├── .gitignore
+├── .cursorignore
+├── .cursorrules
+├── package.json
+└── README.md 

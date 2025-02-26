@@ -1,3 +1,12 @@
+/**
+ * @file test.js
+ * @description 后端服务器入口文件，提供登录和销售数据API
+ * @database MySQL
+ * @api_endpoints 
+ * - POST /api/login - 用户登录
+ * - GET /api/sales - 获取销售记录
+ */
+
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
@@ -5,11 +14,14 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-// 启用 CORS 和 body-parser
+// 启用跨域请求和请求体解析
 app.use(cors());
 app.use(bodyParser.json());
 
-// 数据库连接配置
+/**
+ * @description 数据库连接配置
+ * @config {Object} 数据库连接参数
+ */
 const db = mysql.createConnection({
     host: '127.0.0.1',     // 数据库主机地址
     user: 'newuser',     // 使用新创建的用户
@@ -17,7 +29,10 @@ const db = mysql.createConnection({
     database: 'login_db'  // 数据库名
 });
 
-// 连接数据库
+/**
+ * @description 建立数据库连接
+ * @event 连接成功或失败时输出日志
+ */
 db.connect((err) => {
     if (err) {
         console.error('数据库连接失败：', err);
@@ -26,7 +41,16 @@ db.connect((err) => {
     console.log('数据库连接成功！');
 });
 
-// 登录API
+/**
+ * @api POST /api/login
+ * @description 处理用户登录请求
+ * @param {Object} req.body 
+ * @param {string} req.body.username - 用户名
+ * @param {string} req.body.password - 密码
+ * @returns {Object} 登录结果
+ * - success: boolean
+ * - user: {username: string, role: string} | null
+ */
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
     
@@ -51,7 +75,12 @@ app.post('/api/login', (req, res) => {
     });
 });
 
-// 获取销售记录API
+/**
+ * @api GET /api/sales
+ * @description 获取销售记录
+ * @permission 需要manager角色
+ * @returns {Array<Object>} 销售记录列表
+ */
 app.get('/api/sales', (req, res) => {
     const query = 'SELECT * FROM sales_records';
     db.query(query, (err, results) => {

@@ -1,5 +1,5 @@
 /**
- * @file test.js
+ * @file index.js
  * @description 后端服务器入口文件，提供登录和销售数据API
  * @database MySQL
  * @api_endpoints 
@@ -96,48 +96,4 @@ app.get('/api/sales', (req, res) => {
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`服务器运行在端口 ${PORT}`);
-});
-
-let phoneReg=/^1[3-9]\d{9}$/;
-
-console.log(phoneReg.test("13800138000"));
-console.log(phoneReg.test("138001380001"));
-console.log(phoneReg.test("1380013800"));
-console.log(phoneReg.test("138001380000"));
-console.log(phoneReg.test("1380013800000"));
-console.log(phoneReg.test("13800138000000"));
-console.log(phoneReg.test("138001380000000"));
-console.log(phoneReg.test("1380013800000000"));
-console.log(phoneReg.test("13800138000000000"));
-console.log(phoneReg.test("138001380000000000"));
-
-// 快速排序实现
-function quickSort(arr) {
-    if (arr.length <= 1) return arr;
-    
-    const pivot = arr[Math.floor(arr.length / 2)]; // 选择中间元素作为基准
-    const left = [];
-    const right = [];
-    const equal = [];
-    
-    // 分区
-    for (let element of arr) {
-        if (element < pivot) {
-            left.push(element);
-        } else if (element > pivot) {
-            right.push(element);
-        } else {
-            equal.push(element);
-        }
-    }
-    
-    // 递归排序并合并结果
-    return [...quickSort(left), ...equal, ...quickSort(right)];
-}
-
-// 测试用例
-const arr = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5];
-console.log("原始数组:", arr);
-console.log("排序后:", quickSort(arr));
-
-
+}); 

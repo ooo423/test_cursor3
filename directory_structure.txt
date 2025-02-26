@@ -1,4 +1,4 @@
-project/
+CURSORTEST/
 ├── views/
 │   ├── login.html          # 原222.html
 │   └── dashboard.html      # 原dashboard.html

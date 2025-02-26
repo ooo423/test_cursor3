@@ -1,0 +1,63 @@
+/**
+ * @file dashboard.css
+ * @description 后台页面专用样式
+ */
+
+.header {
+    background-color: #1890ff;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f0f2f5;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    left: 0;
+    top: 60px;
+}
+
+.content {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+.menu-item {
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.menu-item:hover {
+    background-color: #e6f7ff;
+}
+
+.logout-btn {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #ff4d4f;
+    border: none;
+    color: white;
+    border-radius: 4px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f5f5f5;
+} 

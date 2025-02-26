@@ -1,0 +1,38 @@
+/**
+ * @file main.css
+ * @description 全局样式文件
+ */
+
+/* 全局基础样式 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none;
+}
+
+/* 导入组件样式 */
+@import url('./components/login.css');
+@import url('./components/dashboard.css'); 
